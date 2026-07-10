@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>ClipMaker</title>
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <div class="brand">
+        <span class="brand-mark">◧</span>
+        <span class="brand-name">ClipMaker</span>
+      </div>
+      <div class="brand-sub">long video in — vertical clips out</div>
+    </header>
+
+    <main class="stage">
+      <section class="panel input-panel" id="input-panel">
+        <div class="tab-row">
+          <button class="tab active" data-tab="file">Upload file</button>
+          <button class="tab" data-tab="url">Paste link</button>
+        </div>
+
+        <div class="tab-body" id="tab-file">
+          <label class="dropzone" id="dropzone">
+            <input type="file" id="video_file" accept="video/*" hidden>
+            <span class="dz-icon">⇪</span>
+            <span class="dz-text">Drop a video file here, or click to browse</span>
+            <span class="dz-file" id="dz-file-name"></span>
+          </label>
+        </div>
+
+        <div class="tab-body hidden" id="tab-url">
+          <input type="text" id="video_url" class="text-input"
+                 placeholder="Paste a YouTube, TikTok, Instagram, or Facebook video link">
+        </div>
+
+        <div class="field">
+          <label for="api_key">Anthropic API key</label>
+          <input type="password" id="api_key" class="text-input" placeholder="sk-ant-...">
+          <span class="hint">Used locally to score clips — never stored.</span>
+        </div>
+
+        <div class="field">
+          <label for="model_size">Transcription accuracy</label>
+          <select id="model_size" class="text-input">
+            <option value="tiny">Fastest (tiny)</option>
+            <option value="base">Fast (base)</option>
+            <option value="small" selected>Balanced (small)</option>
+            <option value="medium">Most accurate (medium — slower)</option>
+          </select>
+        </div>
+
+        <button class="primary-btn" id="run-btn">Find the clips</button>
+        <p class="error-msg" id="error-msg"></p>
+      </section>
+
+      <section class="panel status-panel hidden" id="status-panel">
+        <div class="status-line">
+          <span class="status-dot" id="status-dot"></span>
+          <span class="status-label" id="status-label">Queued</span>
+          <span class="status-detail" id="status-detail"></span>
+        </div>
+        <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
+      </section>
+
+      <section class="panel results-panel hidden" id="results-panel">
+        <h2 class="results-title">Clips ranked by virality score</h2>
+        <div class="clip-list" id="clip-list"></div>
+        <button class="secondary-btn" id="reset-btn">Start another video</button>
+      </section>
+    </main>
+  </div>
+
+  <script src="/static/script.js"></script>
+</body>
+</html>
